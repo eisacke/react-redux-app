@@ -1,19 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import Navbar from './components/utility/Navbar';
+// import Footer from './components/utility/Footer';
+import Routes from './components/utility/Routes';
 
-import './scss/style.scss';
-
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
-      <main>
-        <h1>Hello World!</h1>
-      </main>
+      <Router>
+        <div>
+          <main>
+            <Routes />
+          </main>
+        </div>
+      </Router>
     );
   }
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+export default App;

@@ -1,0 +1,25 @@
+@import 'vendor/normalize';
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+a {
+  color: inherit;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.photos-list {
+  display: flex;
+  flex-wrap: wrap;
+  &__link {
+    width: calc(25% - 5px);
+  }
+}

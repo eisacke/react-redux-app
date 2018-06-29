@@ -16,10 +16,10 @@ const CopyWebpack = new CopyWebpackPlugin([
 const HotModuleReplcement = new webpack.HotModuleReplacementPlugin();
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve('public'),
-    filename: 'app.js',
+    filename: 'index.js',
     publicPath: '/'
   },
   module: {

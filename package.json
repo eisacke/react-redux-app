@@ -5,12 +5,16 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "yarn build && webpack-dev-server",
-    "build": "webpack -p"
+    "start": "yarn build && node index",
+    "build": "webpack -p",
+    "seed": "node db/seeds",
+    "start:client": "webpack-dev-server",
+    "start:server": "nodemon"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-preset-env": "^1.7.0",
+    "express": "^4.16.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",

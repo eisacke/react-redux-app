@@ -6,7 +6,7 @@ import Button from '../common/Button';
 const PhotosList = ({ photos, page, fetchPhotos }) => {
 
   const changePage = (increment) => {
-    this.props.fetchPhotos(50, page + increment);
+    fetchPhotos(50, page + increment);
   };
 
   const renderPagination = () => {

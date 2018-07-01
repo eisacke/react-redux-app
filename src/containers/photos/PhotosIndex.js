@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PhotosList from '../../components/photos/PhotosList';
 import Loading from '../../components/common/Loading';
-import Error from '../../components/common/Error';
+import ErrorMessage from '../../components/common/ErrorMessage';
 import { fetchPhotos } from '../../actions';
 
 class PhotosIndex extends Component {
@@ -18,7 +18,7 @@ class PhotosIndex extends Component {
     }
 
     if (errors.status && errors.statusText) {
-      return <Error errors={errors} />;
+      return <ErrorMessage errors={errors} />;
     }
 
     return (

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PhotoDetails from '../../components/photos/PhotoDetails';
 import BackButton from '../../components/common/BackButton';
 import Loading from '../../components/common/Loading';
-import Error from '../../components/common/Error';
+import ErrorMessage from '../../components/common/ErrorMessage';
 import AlbumPreview from '../../components/albums/AlbumPreview';
 import { fetchPhotoUserAlbumAndRelatedPhotos } from '../../actions';
 
@@ -36,7 +36,7 @@ class PhotosShow extends Component {
     }
 
     if (errors.status && errors.statusText) {
-      return <Error errors={errors} />;
+      return <ErrorMessage errors={errors} />;
     }
 
     return (

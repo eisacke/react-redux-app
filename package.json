@@ -5,7 +5,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "yarn build && webpack-dev-server",
+    "build": "webpack -p"
   },
   "dependencies": {
     "axios": "^0.18.0",

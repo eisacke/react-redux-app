@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-white flex-none bg-white flex h3 flex justify-center items-center mono f6">
       <a
-        href="http://www.github.com/eisacke"
+        href="https://github.com/eisacke/react-redux-app"
         target="_blank"
         rel="noopener noreferrer"
         className="no-underline">

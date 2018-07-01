@@ -18,6 +18,7 @@ class PhotosList extends Component {
         <div className="w-third">
           {page !== 1 && <Button onClick={() => this.changePage(-1)}><i className="fas fa-arrow-left"></i> Previous</Button>}
         </div>
+        {/* TODO: remove magic numbers, 50 per page and 100 pages */}
         <span className="w-third tc mono">{page}/50</span>
         <div className="w-third flex justify-end">
           {page !== 100 && <Button onClick={() => this.changePage(1)}>Next <i className="fas fa-arrow-right"></i></Button>}

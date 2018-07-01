@@ -1,11 +1,8 @@
 import React from 'react';
 
-const PhotoTile = ({ title, thumbnailUrl }) => {
+const PhotoTile = ({ thumbnailUrl }) => {
   return (
-    <div>
-      <img src={thumbnailUrl} />
-      <p>{title}</p>
-    </div>
+    <img src={thumbnailUrl} className="dim" />
   );
 };
 

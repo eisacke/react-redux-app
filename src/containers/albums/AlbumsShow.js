@@ -1,38 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchAlbum, fetchPhotos, fetchUser } from '../../actions';
+import { fetchAlbumPhotosAndUser } from '../../actions';
+import BackButton from '../../components/common/BackButton';
+import Loading from '../../components/common/Loading';
+import Error from '../../components/common/Error';
+import PhotosList from '../../components/photos/PhotosList';
 
 class AlbumsShow extends Component {
   componentDidMount = () => {
     const { id } = this.props.match.params;
-    this.props.fetchAlbum(id);
+    this.props.fetchAlbumPhotosAndUser(id);
   }
 
   render() {
-    const { album, loading, errors } = this.props;
-
-    if (errors.status && errors.statusText) {
-      return <h1>Error: {errors.status} {errors.statusText}</h1>;
-    }
+    const { album, photos, loading, errors, user } = this.props;
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
-    if (!album) return false;
+    if (errors.status && errors.statusText) {
+      return <Error errors={errors} />;
+    }
 
     return (
-      <div>
-        <h1>{album.title}</h1>
-      </div>
+      <Fragment>
+        <BackButton history={this.props.history} />
+        <h2 className="f3 mt3 mb2">{album.title}</h2>
+        <h3 className="f4 fw3 mt0 mb3">By {user.name}</h3>
+        <PhotosList photos={photos} loading={loading} errors={errors} />
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { loading, photos, errors } = state.photosStore;
+  const { photos, errors } = state.photosStore;
   const { album } = state.albumsStore;
   const { user } = state.usersStore;
+  const { loading } = state.loadingStore;
   return {
     loading,
     photos,
@@ -44,8 +50,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, {
-    fetchUser,
-    fetchAlbum,
-    fetchPhotos
+    fetchAlbumPhotosAndUser
   }
 )(AlbumsShow);

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PhotosList from '../../components/photos/PhotosList';
-
+import Loading from '../../components/common/Loading';
+import Error from '../../components/common/Error';
 import { fetchPhotos } from '../../actions';
 
 class PhotosIndex extends Component {
@@ -11,21 +12,23 @@ class PhotosIndex extends Component {
 
   render() {
     const { photos, loading, errors } = this.props;
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (errors.status && errors.statusText) {
+      return <Error errors={errors} />;
+    }
+
     return (
-
-      <div>
-        {errors.global &&<div>Error! {errors.global}</div>}
-
-        {loading && <div>Loading...</div>}
-
-        <PhotosList photos={photos} loading={loading} errors={errors} />
-      </div>
+      <PhotosList photos={photos} loading={loading} errors={errors} />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { loading, photos, errors } = state.photosStore;
+  const { photos, errors } = state.photosStore;
+  const { loading } = state.loadingStore;
   return {
     loading,
     photos,

@@ -8,21 +8,18 @@ class PhotosList extends React.Component {
     const { photos } = this.props;
 
     return (
-      <div className="row">
-        <h1>Photo List</h1>
-        <div className="photos-list">
-          {photos.map(photo =>
-            <Link
-              key={photo.id}
-              to={'/photos/' + photo.id}
-              className="photos-list__link"
-            >
-              <PhotoTile
-                {...photo}
-              />
-            </Link>
-          )}
-        </div>
+      <div className="cf nr2 nl2">
+        {photos.map(photo =>
+          <Link
+            key={photo.id}
+            to={'/photos/' + photo.id}
+            className="fl w-third w-20-ns ph2 mb3"
+          >
+            <PhotoTile
+              {...photo}
+            />
+          </Link>
+        )}
       </div>
     );
   }

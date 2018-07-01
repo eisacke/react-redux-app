@@ -1,0 +1,23 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  background-color: #fafafa;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}

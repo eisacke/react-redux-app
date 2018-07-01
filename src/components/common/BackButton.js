@@ -1,12 +1,11 @@
 import React from 'react';
+import Button from './Button';
 
 const BackButton = ({ history }) => {
   return (
-    <div>
-      <button onClick={history.goBack}>
-        Back
-      </button>
-    </div>
+    <Button onClick={history.goBack}>
+      <i className="fas fa-arrow-left"></i> Back
+    </Button>
   );
 };
 

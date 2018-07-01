@@ -3,7 +3,6 @@ import { FETCH_PHOTOS, FETCH_PHOTO } from '../constants/actionTypes';
 const defaultState = {
   photos: [],
   photo: {},
-  loading: false,
   errors: {}
 };
 
@@ -15,7 +14,6 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         photos: action.payload.data,
-        loading: false,
         errors: {}
       };
     }
@@ -23,25 +21,23 @@ export default (state = defaultState, action = {}) => {
     case FETCH_PHOTOS + '_PENDING': {
       return {
         ...state,
-        loading: true,
-        errors: {}
+        photos: []
       };
     }
 
     case FETCH_PHOTOS + '_REJECTED': {
-      const data = action.payload.response.data;
+      const { status, statusText } = action.payload.response;
       return {
         ...state,
-        loading: false,
-        errors: { global: data.message }
+        errors: { status, statusText }
       };
     }
 
     case FETCH_PHOTO + '_PENDING': {
       return {
         ...state,
-        loading: true,
-        photo: {}
+        photo: {},
+        photos: []
       };
     }
 
@@ -50,8 +46,7 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         photo,
-        errors: {},
-        loading: false
+        errors: {}
       };
     }
 
@@ -59,7 +54,6 @@ export default (state = defaultState, action = {}) => {
       const { status, statusText } = action.payload.response;
       return {
         ...state,
-        loading: false,
         errors: { status, statusText }
       };
     }

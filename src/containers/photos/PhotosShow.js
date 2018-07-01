@@ -1,53 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PhotoDetails from '../../components/photos/PhotoDetails';
-import { fetchPhoto, fetchAlbum, fetchUser } from '../../actions';
+import BackButton from '../../components/common/BackButton';
+import Loading from '../../components/common/Loading';
+import Error from '../../components/common/Error';
+import AlbumPreview from '../../components/albums/AlbumPreview';
+import { fetchPhotoUserAlbumAndRelatedPhotos } from '../../actions';
 
 class PhotosShow extends Component {
+  state = {
+    id: ''
+  }
+
   componentDidMount = () => {
     const { id } = this.props.match.params;
-    this.props.fetchPhoto(id)
-      .then(res => {
-        const { albumId } = res.value.data;
-        return this.props.fetchAlbum(albumId);
-      })
-      .then(res => {
-        const { userId } = res.value.data;
-        return this.props.fetchUser(userId);
-      })
-      .catch(err => console.log(err));
+    this.setState({ id });
+    this.props.fetchPhotoUserAlbumAndRelatedPhotos(id);
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const currentId = this.state.id;
+    const nextId = nextProps.match.params.id;
+
+    if (currentId && currentId !== nextId) {
+      this.setState({ id: nextId });
+      this.props.fetchPhotoUserAlbumAndRelatedPhotos(nextId);
+    }
   }
 
   render() {
-    const { photo, user, album, loading, errors, history } = this.props;
-
-    if (errors.status && errors.statusText) {
-      return <h1>Error: {errors.status} {errors.statusText}</h1>;
-    }
+    const { photo, photos, user, album, loading, errors, history } = this.props;
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
-    if (!photo) return false;
+    if (errors.status && errors.statusText) {
+      return <Error errors={errors} />;
+    }
 
     return (
-      <div>
-        <PhotoDetails photo={photo} history={history}/>
-
-        <h1>By: {user.name} from {album.title}</h1>
-      </div>
+      <Fragment>
+        <BackButton history={history} />
+        <PhotoDetails photo={photo} album={album} user={user}/>
+        <AlbumPreview album={album} photos={photos} />
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { loading, photo, errors } = state.photosStore;
+  const { photo, photos, errors } = state.photosStore;
   const { album } = state.albumsStore;
   const { user } = state.usersStore;
+  const { loading } = state.loadingStore;
   return {
     loading,
     photo,
+    photos,
     errors,
     album,
     user
@@ -56,8 +66,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, {
-    fetchPhoto,
-    fetchAlbum,
-    fetchUser
+    fetchPhotoUserAlbumAndRelatedPhotos
   }
 )(PhotosShow);

@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import albumsReducer from './albumsReducer';
 import photosReducer from './photosReducer';
 import usersReducer from './usersReducer';
+import loadingReducer from './loadingReducer';
 
-const padApp = combineReducers({
+const rootReducer = combineReducers({
   albumsStore: albumsReducer,
   photosStore: photosReducer,
-  usersStore: usersReducer
+  usersStore: usersReducer,
+  loadingStore: loadingReducer
 });
 
-export default padApp;
+export default rootReducer;

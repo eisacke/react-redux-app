@@ -11,7 +11,8 @@ class PhotosIndex extends Component {
   }
 
   render() {
-    const { photos, loading, errors } = this.props;
+    const { photos, page, loading, errors, fetchPhotos } = this.props;
+
     if (loading) {
       return <Loading />;
     }
@@ -21,17 +22,22 @@ class PhotosIndex extends Component {
     }
 
     return (
-      <PhotosList photos={photos} loading={loading} errors={errors} />
+      <PhotosList
+        photos={photos}
+        fetchPhotos={fetchPhotos}
+        page={page}
+      />
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { photos, errors } = state.photosStore;
+  const { photos, page, errors } = state.photosStore;
   const { loading } = state.loadingStore;
   return {
     loading,
     photos,
+    page,
     errors
   };
 };

@@ -1,12 +1,11 @@
-import { FETCH_PHOTOS, FETCH_PHOTO } from '../constants/actionTypes';
+import { FETCH_PHOTOS, FETCH_PHOTO, SET_PHOTOS_CURRENT_PAGE } from '../constants/actionTypes';
 
 const defaultState = {
   photos: [],
   photo: {},
-  errors: {}
+  errors: {},
+  page: 1
 };
-
-// TODO: errors - check the format they come back in from API
 
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
@@ -30,6 +29,13 @@ export default (state = defaultState, action = {}) => {
       return {
         ...state,
         errors: { status, statusText }
+      };
+    }
+
+    case SET_PHOTOS_CURRENT_PAGE: {
+      return {
+        ...state,
+        page: action.payload
       };
     }
 

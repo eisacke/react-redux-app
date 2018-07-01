@@ -28,7 +28,9 @@ class AlbumsShow extends Component {
         <BackButton history={this.props.history} />
         <h2 className="f3 mt3 mb2">{album.title}</h2>
         <h3 className="f4 fw3 mt0 mb3">By {user.name}</h3>
-        <PhotosList photos={photos} loading={loading} errors={errors} />
+        <PhotosList
+          photos={photos}
+        />
       </Fragment>
     );
   }

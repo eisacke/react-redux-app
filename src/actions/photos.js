@@ -1,13 +1,21 @@
 import { client } from '../lib/client';
-import { FETCH_PHOTOS, FETCH_PHOTO } from '../constants/actionTypes';
+import { FETCH_PHOTOS, FETCH_PHOTO, SET_PHOTOS_CURRENT_PAGE } from '../constants/actionTypes';
 import { fetchAlbum, fetchUser } from './';
 
-export function fetchPhotos(limit=50, albumId) {
+export function fetchPhotos(limit = 50, page = 1, albumId) {
   return dispatch => {
+    dispatch(setPhotosCurrentPage(page));
     return dispatch({
       type: FETCH_PHOTOS,
-      payload: client.get(`photos?_limit=${limit}${albumId ? '&albumId=' + albumId : ''}`)
+      payload: client.get(`photos?${limit ? '&_limit=' + limit : ''}${page ? '&_page=' + page : ''}${albumId ? '&albumId=' + albumId : ''}`)
     });
+  };
+}
+
+export function setPhotosCurrentPage(page){
+  return {
+    type: SET_PHOTOS_CURRENT_PAGE,
+    payload: page
   };
 }
 
@@ -33,7 +41,7 @@ export function fetchPhotoUserAlbumAndRelatedPhotos(id) {
       })
       .then(() => {
         const fetchedPhoto = getState().photosStore.photo;
-        return dispatch(fetchPhotos(5, fetchedPhoto.albumId));
+        return dispatch(fetchPhotos(5, 1, fetchedPhoto.albumId));
       });
   };
 }

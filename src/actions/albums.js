@@ -15,7 +15,8 @@ export function fetchAlbumPhotosAndUser(id) {
   return (dispatch, getState) => {
     return dispatch(fetchAlbum(id))
       .then(() => {
-        return dispatch(fetchPhotos(50, id));
+        // null limit and null page to get all photos from an album
+        return dispatch(fetchPhotos(null, null, id));
       })
       .then(() => {
         const fetchedAlbum = getState().albumsStore.album;
